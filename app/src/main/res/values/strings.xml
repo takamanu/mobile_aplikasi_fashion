@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">AgroConnect</string>
+    <string name="logout">Logout</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Voucher</string>
+    <string name="title_notifications">Settings</string>
+    <string name="tv_greeting">Greetings for,</string>
+    <string name="tv_name">Fauzan Ganteng\n</string>
+    <string name="tv_title_total_points">Points Achieved</string>
+    <string name="tv_total_points">0</string>
+    <string name="tv_title_products_donate">Donated products\n</string>
+    <string name="tv_total_products_donate">0\n</string>
+    <string name="title_search">Scan</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="description">Description</string>
+    <string name="post">Predict</string>
+    <string name="no_file">No file uploaded.</string>
+    <string name="capture">Capture\n</string>
+    <string name="switch_camera">Switch Camera\n</string>
+    <string name="tv_warning_provide_picture">You must provide a picture first!</string>
+    <string name="tv_title_products_selected">Category: NULL</string>
+    <string name="tv_total_points_given">0</string>
+    <string name="submit">Submit</string>
+    <string name="modal_name">Product Name</string>
+    <string name="modal_category">Category</string>
+    <string name="modal_points">Points</string>
+    <string name="modal_user">User</string>
+    <string name="modal_btn_donate">Request</string>
+    <string name="modal_btn_cancel">Cancel</string>
+    <string name="modal_btn_wrong_predict">Wrong Fashion?</string>
+    <string name="modal_fashion_name">Fashion Name</string>
+    <string name="btn_donate">Donate</string>
+    <string name="title_voucher">Vouchers</string>
+    <string name="btn_reedem">Reedem</string>
+    <string name="btn_my_voucher">My Voucher</string>
+    <string name="title_history">History</string>
+</resources>

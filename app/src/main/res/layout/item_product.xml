@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/item_fashion.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="15dp"
+    android:background="@color/gray_light">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.CardView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- ImageView for the fashion item image -->
+
+            <ImageView
+                android:id="@+id/fashionImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_image_24" />
+
+            <!-- TextView for the fashion item title -->
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:fontFamily="@font/nunito"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Stylish Vintage Dress" />
+
+            <!-- Gray stripe -->
+
+
+            <!-- TextView for the "Donated by" information -->
+            <TextView
+                android:id="@+id/contentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:text="Points achieved: 100" />
+
+            <TextView
+                android:id="@+id/tv_status_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/gray_light"
+                android:layout_marginBottom="15dp"
+                android:text="Status: On process" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/gray_light" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reedem"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/btn_reedem"
+                app:cornerRadius="24dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:textColor="?attr/colorOnPrimary" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

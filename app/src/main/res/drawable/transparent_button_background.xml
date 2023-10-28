@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Transparent fill color -->
+            <solid android:color="@android:color/transparent" />
+            <!-- Stroke color and width -->
+            <stroke
+                android:width="2dp"
+            android:color="@color/green" /> <!-- Replace with your desired stroke color -->
+            <!-- Optionally, set corner radius -->
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+</layer-list>

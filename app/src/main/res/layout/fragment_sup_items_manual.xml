@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="16dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/modal_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="8dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="24dp">
+
+
+
+        <LinearLayout
+            android:id="@+id/modal_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/modal_name"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="?attr/colorOnBackground" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_modal_fashion_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconDrawable="@drawable/baseline_checkroom_24"
+                app:startIconTint="@color/purple_500">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_modal_fashion_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito"
+                    android:hint="@string/modal_fashion_name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_amount"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="@string/modal_points"-->
+<!--                style="@style/TextAppearance.MaterialComponents.Body1"-->
+<!--                android:textColor="?attr/colorOnBackground"-->
+<!--                android:drawableStart="@drawable/baseline_monetization_on_24"-->
+<!--                android:drawableTint="@color/green"-->
+<!--                android:drawablePadding="4dp"-->
+<!--                android:paddingTop="8dp"-->
+<!--                android:paddingBottom="8dp" />-->
+
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/modal_user"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="?attr/colorOnBackground"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:drawableTint="@color/green"
+                android:drawablePadding="4dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_donate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/modal_btn_donate"
+                app:cornerRadius="24dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:textColor="?attr/colorOnPrimary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/modal_btn_cancel"
+                app:cornerRadius="24dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textColor="@color/green"
+                android:background="@drawable/transparent_button_background" />
+
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btn_wrong_predict"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:text="@string/modal_btn_wrong_predict"-->
+<!--                app:cornerRadius="24dp"-->
+<!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                android:textColor="@color/light_red"-->
+<!--                android:background="@drawable/transparent_button_background" />-->
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

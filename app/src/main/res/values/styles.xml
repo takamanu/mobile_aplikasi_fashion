@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:clickable">true</item>
+
+    </style>
+    <style name="YourCustomTheme" parent="Theme.AppCompat.Light">
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:navigationBarColor">@color/status_bar_color</item>
+
+
+    </style>
+</resources>

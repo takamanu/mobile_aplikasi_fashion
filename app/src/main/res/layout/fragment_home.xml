@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/nunito"
+            android:text="@string/tv_greeting"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars"
+            tools:srcCompat="@tools:sample/avatars" />
+        />
+
+        <TextView
+            android:id="@+id/tv_nama"
+            android:layout_width="156dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/nunito"
+            android:text="@string/tv_name"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/constraintLayout2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_marginStart="30dp"-->
+
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="30dp"-->
+<!--        android:background="@drawable/border_background"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_totalsupplies"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="6dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:fontFamily="@font/nunito"-->
+<!--            android:text="Your Supplies"-->
+<!--            android:textColor="#000000"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_totalsupplieslive"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:fontFamily="@font/nunito"-->
+<!--            android:text="0"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="30sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_totalsupplies" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_totaldemandlive"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginEnd="135dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:fontFamily="@font/nunito"-->
+
+<!--            android:text="0"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="30sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_totaldemand" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_totaldemand"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="6dp"-->
+<!--            android:layout_marginEnd="65dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:fontFamily="@font/nunito"-->
+<!--            android:text="Your Demand"-->
+
+<!--            android:textColor="#000000"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_points"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/border_background">
+
+            <!-- Your TextViews and constraints here -->
+
+            <TextView
+                android:id="@+id/tv_title_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito"
+
+                android:text="@string/tv_title_total_points"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_total_points_donate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito"
+                android:text="@string/tv_total_points"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_points" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_points">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_products"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/border_background">
+
+            <!-- Your TextViews and constraints here -->
+
+            <TextView
+                android:id="@+id/tv_title_products_donate"
+                android:layout_width="122dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito"
+
+                android:text="@string/tv_title_products_donate"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_total_products_donate"
+                android:layout_width="20dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito"
+                android:text="@string/tv_total_products_donate"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_products_donate" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_add_products"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/btn_donate"
+        app:cornerRadius="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_products" />
+
+    <Button
+        android:id="@+id/btn_my_voucher"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/btn_my_voucher"
+        app:cornerRadius="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_products" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

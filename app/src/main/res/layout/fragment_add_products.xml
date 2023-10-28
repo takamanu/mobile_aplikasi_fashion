@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.AddProductsFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_add_products"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_image_24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/camera"
+                    app:cornerRadius="24dp" />
+
+                <Button
+                    android:id="@+id/btn_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:text="@string/gallery"
+                    app:cornerRadius="24dp" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/light_red">
+
+                    <!-- Your TextViews and constraints here -->
+
+                    <TextView
+                        android:id="@+id/tv_warning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nunito"
+
+                        android:text="@string/tv_warning_provide_picture"
+                        android:textColor="#000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="20dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_points"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/border_background">
+
+                    <!-- Your TextViews and constraints here -->
+
+                    <TextView
+                        android:id="@+id/tv_products_selected"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nunito"
+
+                        android:text="@string/tv_title_products_selected"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_total_points_given"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nunito"
+                        android:text="@string/tv_total_points_given"
+                        android:textColor="#000000"
+                        android:textSize="30sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_products_selected" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_upload"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="60dp"
+                android:text="@string/post"
+                app:cornerRadius="24dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:textColor="?attr/colorOnPrimary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_submit"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="60dp"
+                android:text="@string/submit"
+                app:cornerRadius="24dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:textColor="?attr/colorOnPrimary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_wrong_predict"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="60dp"
+                android:text="@string/modal_btn_wrong_predict"
+                app:cornerRadius="24dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textColor="@color/light_red"
+                android:background="@drawable/transparent_button_background"  />
+
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_submit"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:text="@string/submit"-->
+<!--                app:cornerRadius="24dp" />-->
+
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_scan"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btn_find_supplies"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:fontFamily="@font/nunito"
+        android:text="Find Supplies"
+        app:cornerRadius="45dp" />
+
+    <Button
+        android:id="@+id/btn_find_demand"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:fontFamily="@font/nunito"
+        android:text="Find Demand"
+        app:cornerRadius="45dp" />
+
+</LinearLayout>
+
