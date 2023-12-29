@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/farm_to_table"
+        app:srcCompat="@drawable/aifash_logo"
         tools:srcCompat="@tools:sample/avatars" />
 
 

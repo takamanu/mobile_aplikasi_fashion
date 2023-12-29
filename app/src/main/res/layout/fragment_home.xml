@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.users.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -204,12 +211,12 @@
 
             <TextView
                 android:id="@+id/tv_title_products_donate"
-                android:layout_width="122dp"
+                android:layout_width="150dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nunito"
-
+                android:gravity="center"
                 android:text="@string/tv_title_products_donate"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -218,8 +225,8 @@
 
             <TextView
                 android:id="@+id/tv_total_products_donate"
-                android:layout_width="20dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/nunito"
                 android:text="@string/tv_total_products_donate"
@@ -228,6 +235,74 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_products_donate" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_carbon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_products">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_carbon"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:background="@drawable/border_background">
+
+            <!-- Your TextViews and constraints here -->
+
+            <TextView
+                android:id="@+id/tv_title_carbon"
+                android:layout_width="150dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito"
+                android:gravity="center"
+                android:text="@string/tv_title_carbon"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_total_carbon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito"
+                android:text="@string/tv_total_products_donate"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_carbon" />
+
+            <TextView
+                android:id="@+id/tv_total_tree_planted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito"
+                android:text="@string/tv_total_tree_planted"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_total_carbon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -242,7 +317,7 @@
         app:cornerRadius="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_products" />
+        app:layout_constraintTop_toBottomOf="@+id/cv_carbon" />
 
     <Button
         android:id="@+id/btn_my_voucher"
@@ -258,3 +333,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AgroConnect"
+rootProject.name = "AIFash"
 include ':app'

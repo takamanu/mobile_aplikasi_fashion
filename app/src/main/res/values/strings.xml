@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AgroConnect</string>
+    <string name="app_name">AI Fashion</string>
     <string name="logout">Logout</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -8,21 +8,21 @@
     <string name="title_dashboard">Voucher</string>
     <string name="title_notifications">Settings</string>
     <string name="tv_greeting">Greetings for,</string>
-    <string name="tv_name">Fauzan Ganteng\n</string>
+    <string name="tv_name">Fauzan Ganteng</string>
     <string name="tv_title_total_points">Points Achieved</string>
     <string name="tv_total_points">0</string>
-    <string name="tv_title_products_donate">Donated products\n</string>
-    <string name="tv_total_products_donate">0\n</string>
+    <string name="tv_title_products_donate">Recycled Products</string>
+    <string name="tv_total_products_donate">0</string>
     <string name="title_search">Scan</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="description">Description</string>
     <string name="post">Predict</string>
     <string name="no_file">No file uploaded.</string>
-    <string name="capture">Capture\n</string>
-    <string name="switch_camera">Switch Camera\n</string>
-    <string name="tv_warning_provide_picture">You must provide a picture first!</string>
-    <string name="tv_title_products_selected">Category: NULL</string>
+    <string name="capture">Capture</string>
+    <string name="switch_camera">Switch Camera</string>
+    <string name="tv_warning_provide_picture">Please upload your picture.</string>
+    <string name="tv_title_products_selected">Category: Not detected</string>
     <string name="tv_total_points_given">0</string>
     <string name="submit">Submit</string>
     <string name="modal_name">Product Name</string>
@@ -33,9 +33,15 @@
     <string name="modal_btn_cancel">Cancel</string>
     <string name="modal_btn_wrong_predict">Wrong Fashion?</string>
     <string name="modal_fashion_name">Fashion Name</string>
-    <string name="btn_donate">Donate</string>
+    <string name="btn_donate">Recycle</string>
     <string name="title_voucher">Vouchers</string>
     <string name="btn_reedem">Reedem</string>
     <string name="btn_my_voucher">My Voucher</string>
     <string name="title_history">History</string>
+    <string name="title_fashion">Fashions</string>
+    <string name="title_vouchers">Vouchers</string>
+    <string name="title_configs">Configs</string>
+    <string name="tv_title_carbon">Carbon Reduction</string>
+    <string name="title_donate">Carbon Reduction Value: Not detected</string>
+    <string name="tv_total_tree_planted">equivalent to 0 tree planted</string>
 </resources>

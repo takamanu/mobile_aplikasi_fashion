@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.users.AddProductsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.AddProductsFragment">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +28,7 @@
                 android:layout_height="300dp"
                 android:layout_marginTop="12dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/baseline_image_24" />
+                app:srcCompat="@drawable/upload_notice" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,7 +109,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_points"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="120dp"
                     android:background="@drawable/border_background">
 
                     <!-- Your TextViews and constraints here -->
@@ -119,7 +121,6 @@
                         android:layout_marginTop="8dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/nunito"
-
                         android:text="@string/tv_title_products_selected"
                         android:textColor="#000000"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -130,15 +131,32 @@
                         android:id="@+id/tv_total_points_given"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/nunito"
                         android:text="@string/tv_total_points_given"
                         android:textColor="#000000"
                         android:textSize="30sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_total_carbon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_products_selected" />
+
+                    <TextView
+                        android:id="@+id/tv_total_carbon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nunito"
+                        android:text="@string/title_donate"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_total_points_given" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

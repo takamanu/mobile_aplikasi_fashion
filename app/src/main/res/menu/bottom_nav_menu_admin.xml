@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home_admin"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_search_fashion"
+        android:icon="@drawable/baseline_checkroom_24"
+        android:title="@string/title_fashion" />
+
+    <item
+        android:id="@+id/navigation_search_vouchers"
+        android:icon="@drawable/baseline_vouchers_24"
+        android:title="@string/title_vouchers" />
+
+    <item
+        android:id="@+id/navigation_configs"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/title_configs" />
+
+
+
+</menu>

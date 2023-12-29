@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_admin"
+    app:startDestination="@+id/navigation_home_admin">
+
+    <fragment
+        android:id="@+id/navigation_home_admin"
+        android:name="com.example.aifash.ui.admin.HomeAdminFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home_admin" />
+
+    <fragment
+        android:id="@+id/navigation_search_fashion"
+        android:name="com.example.aifash.ui.admin.FashionSearchFragment"
+        android:label="@string/title_fashion"
+        tools:layout="@layout/fragment_fashion_search" />
+
+    <fragment
+        android:id="@+id/navigation_search_vouchers"
+        android:name="com.example.aifash.ui.admin.VouchersSearchFragment"
+        android:label="@string/title_voucher"
+        tools:layout="@layout/fragment_vouchers_search" />
+
+    <fragment
+        android:id="@+id/navigation_configs"
+        android:name="com.example.aifash.ui.admin.ConfigsFragment"
+        android:label="@string/title_configs"
+        tools:layout="@layout/fragment_configs" />
+
+</navigation>
