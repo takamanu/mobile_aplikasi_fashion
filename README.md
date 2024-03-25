@@ -4,7 +4,7 @@
 
 # AIFash 
 
-Supply chain app of farmer. The game-changer that brings farmers, suppliers, and customers together!
+Supply chain app of fashion recycling.
 
 <img width="122" src="https://github.com/Afansyarifudin/AIFash/assets/68774609/1de150f1-d48c-4101-9df1-e15ffc7803cb" alt="AIFash">  
 
@@ -12,12 +12,9 @@ Supply chain app of farmer. The game-changer that brings farmers, suppliers, and
 
 ## Features
 
-1. Find Supplies and Demand
-2. Create Supplies and Demand
-3. Find Potential Supplies in Maps
-4. Predict future potential supplies and demand in Maps
-5. Logistic Recommendation
-6. Transaction Flow
+1. Recycle used fashions which is still in good conditions.
+2. Get voucher as a payback of recycling the item.
+3. Track of how much carbon value is saved while recycling the item.
 
 
 ## Installation
@@ -35,28 +32,6 @@ git clone https://github.com/Afansyarifudin/AIFash.git
 
 Note: AIFash requires Android 7.0 (Nougat) or above.
 
-## Contributing
-
-We welcome contributions to enhance AIFash and make it even more useful for the agricultural community. If you'd like to contribute, please follow these guidelines:
-
-1. Fork the repository and clone it to your local machine.
-2. Create a new branch: 
-```bash
-git checkout -b my-new-feature
-```
-4. Make your changes and test thoroughly.
-5. Commit your changes: 
-```bash
-git commit -am 'Add some feature'
-```
-7. Push to the branch: 
-```bash
-git push origin my-new-feature
-```
-9. Create a new pull request and provide a detailed description of your changes.
-
-Please ensure that your code follows the project's coding conventions and that you include appropriate test cases.
-
 ## Support
 
 For any issues or questions regarding AIFash, please [submit an issue](https://github.com/Afansyarifudin/AIFash/issues). We will do our best to address it in a timely manner.
@@ -72,4 +47,4 @@ We would like to thank all the contributors who have helped make AIFash a valuab
 
 ## About
 
-AIFash mobile is developed and maintained by [AIFash Bangkit Team]. Connect with us on [GitHub] for updates and announcements.
+AIFash mobile is developed and maintained by [Takamanu]. Connect with us on [GitHub] for updates and announcements.
