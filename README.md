@@ -21,7 +21,7 @@ To use AIFash on your Android device, follow these steps:
 
 1. Clone the repository: 
 ```bash
-git clone https://github.com/Afansyarifudin/AIFash.git
+git clone https://github.com/takamanu/mobile_aplikasi_fashion.git
 ```
 3. Open the project in Android Studio.
 4. Build the project to install any necessary dependencies.
@@ -32,7 +32,7 @@ Note: AIFash requires Android 7.0 (Nougat) or above.
 
 ## Support
 
-For any issues or questions regarding AIFash, please [submit an issue](https://github.com/Afansyarifudin/AIFash/issues). We will do our best to address it in a timely manner.
+For any issues or questions regarding AIFash, please [submit an issue](https://github.com/takamanu/mobile_aplikasi_fashion/issues). We will do our best to address it in a timely manner.
 
 ## License
 
