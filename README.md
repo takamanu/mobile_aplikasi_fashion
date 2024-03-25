@@ -6,8 +6,6 @@
 
 Supply chain app of fashion recycling.
 
-<img width="122" src="https://github.com/Afansyarifudin/AIFash/assets/68774609/1de150f1-d48c-4101-9df1-e15ffc7803cb" alt="AIFash">  
-
 </div>
 
 ## Features
