@@ -82,7 +82,7 @@ class RegisterFragment: Fragment() {
 //                    val registerResponse = result.data
 //                    val username = registerResponse?.username
 ////                    val role = registerResponse?.role
-                    val message = "Hey, ${result.data?.user?.name}! Your registration is succesful!"
+                    val message = "Hey, ${result.data?.data?.name}! Your registration is successful!"
                     showSnackBar(message, GREEN)
 
 

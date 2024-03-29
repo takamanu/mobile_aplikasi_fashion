@@ -8,9 +8,13 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class RegisterResponse(
 
+	@field:SerializedName("status")
+	val status: Boolean? = null,
+
 	@field:SerializedName("message")
 	val message: String? = null,
 
-	@field:SerializedName("user")
-	val user: User? = null
+	@field:SerializedName("data")
+	val data: User? = null
+
 ) : Parcelable

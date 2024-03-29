@@ -9,6 +9,7 @@ import com.example.aifash.Result
 import com.example.aifash.api.ApiConfig
 import com.example.aifash.api.ApiService
 import kotlinx.coroutines.launch
+import java.sql.Time
 
 class RegisterViewModel : ViewModel() {
 
@@ -20,7 +21,10 @@ class RegisterViewModel : ViewModel() {
     fun register(username: String, email: String, password: String, role: Int) {
         viewModelScope.launch {
             try {
-                val request = RegisterRequest(username, email, password, role)
+                val dob = "2023-08-13T16:07:54+02:00"
+                val phoneNumber = "087756675545"
+//                val roleHardCode = "customer"
+                val request = RegisterRequest(username, email, password, "customer", dob, phoneNumber)
                 Log.d("RegisterViewModel", "Sending register request: $request") // Logging the request
                 val response = apiService.register(request)
                 Log.d("RegisterViewModel", "$response")

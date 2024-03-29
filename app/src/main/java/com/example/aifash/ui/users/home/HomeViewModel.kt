@@ -55,13 +55,13 @@ class HomeViewModel : ViewModel() {
     fun calculateTotalFashionPoints(userDataResponse: User?): Int {
         var totalFashionPoints = 0
 
-        userDataResponse?.fashion?.let { fashionItems ->
-            for (fashionItem in fashionItems) {
-                fashionItem?.fashionPoints?.let {
-                    totalFashionPoints += it
-                }
-            }
-        }
+//        userDataResponse?.fashion?.let { fashionItems ->
+//            for (fashionItem in fashionItems) {
+//                fashionItem?.fashionPoints?.let {
+//                    totalFashionPoints += it
+//                }
+//            }
+//        }
 
         return totalFashionPoints
     }

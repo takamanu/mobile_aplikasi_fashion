@@ -131,13 +131,13 @@ class SupItemsFragment : Fragment() {
             val gson = Gson()
 
             val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-            val userId = loginResponse.user?.id
-
+//            val userId = loginResponse.user?.id
+            val userId = 1
             val file = Utils.compressImage(getFile)
 
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart = MultipartBody.Part.createFormData(
-                "fashion_url_image",
+                "attachment",
                 file.name,
                 requestImageFile
             )
@@ -149,6 +149,17 @@ class SupItemsFragment : Fragment() {
 
             Log.d(TAG, "Requesting API: ${product.name}, ${product.points}, 1, $imageMultipart")
 
+            val utils = object : Utils.ApiCallbackString {
+                override fun onResponse(success: Boolean, message: String) {
+                    //                        showAlertDialog(success, message)
+                    Utils.showToast(context, message)
+                    // Navigate back to the AddProductsFragment
+
+
+                    //                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            }
+
             product.name?.let {
                 product.points?.let { it1 ->
                     if (userId != null) {
@@ -156,17 +167,9 @@ class SupItemsFragment : Fragment() {
                             it,
                             it1,
                             imageMultipart,
-                            userId,
-                            object : Utils.ApiCallbackString {
-                                override fun onResponse(success: Boolean, message: String) {
-                                    //                        showAlertDialog(success, message)
-                                    Utils.showToast(context, message)
-                                    // Navigate back to the AddProductsFragment
+//                            userId,
+                            utils)
 
-
-                                    //                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                                }
-                            })
                     }
                 }
             }

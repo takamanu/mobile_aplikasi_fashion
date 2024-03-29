@@ -42,7 +42,8 @@ class DonatedProductsFragment : Fragment() {
         val gson = Gson()
 
         val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-        val userId = loginResponse.user?.id
+//        val userId = loginResponse.user?.id
+        val userId = 1
 
 //        binding.textView7.visibility = View.VISIBLE
 //        binding.textView7.text = "Ini muncul bro"
@@ -58,8 +59,9 @@ class DonatedProductsFragment : Fragment() {
 
         homeViewModel.userData.observe(viewLifecycleOwner) {userData ->
             if (userData != null) {
-                val sentUserData = userData.fashion
-                adapter = sentUserData?.let { FashionAdapter(it) }!!
+//                val sentUserData = userData.fashion
+
+//                adapter = sentUserData?.let { FashionAdapter(it) }!!
                 recyclerView.adapter = adapter
             }
         }

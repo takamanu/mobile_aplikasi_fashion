@@ -1,6 +1,7 @@
 package com.example.aifash.trade
 
 import android.R
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -134,12 +135,14 @@ class PotentialActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun performSearch() {
         val loginResponseJson = sessionPreferences.getString("loginResponse", null)
         val gson = Gson()
 
         val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-        val userId = loginResponse.user?.id
+        val userId = 1
+
         if (userId != null) {
             productViewModel.getAllDemand(selectedCategoryId, userId)
         }

@@ -27,31 +27,33 @@ class VoucherRedeemedFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentVoucherRedeemedBinding.inflate(inflater, container, false)
 
-        Log.d(TAG, "I can access the VoucherReedemedFragment.")
+        Log.d(TAG, "I can access the ${TAG}.")
+
 
         sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
         val loginResponseJson = sharedPreferences.getString("loginResponse", null)
         val gson = Gson()
 
         val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-        val userId = loginResponse.user?.id
+//        val userId = loginResponse.user?.id
+        val userId = 1
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = VoucherUserAdapter(emptyList()) // Initially empty
         recyclerView.adapter = adapter
 
-        if (userId != null) {
-            homeViewModel.getCurrentUserData(userId)
-        }
+//        if (userId != null) {
+        homeViewModel.getCurrentUserData(userId)
+//        }
 
         homeViewModel.userData.observe(viewLifecycleOwner) {userData ->
             if (userData != null) {
-                val sentUserData = userData.userVouchers
-                adapter = sentUserData?.let { VoucherUserAdapter(it) }!!
+//                val sentUserData = userData.userVouchers
+//                adapter = sentUserData?.let { VoucherUserAdapter(it) }!!
                 recyclerView.adapter = adapter
             }
         }
@@ -65,7 +67,12 @@ class VoucherRedeemedFragment : Fragment() {
         return binding.root
     }
 
+    fun fmt(msg: String): Any {
+        println(msg)
+        return msg
+    }
+
     companion object {
-        private const val TAG = "VoucherReedemedFragment"
+        private const val TAG = "VoucherRedeemedFragment"
     }
 }

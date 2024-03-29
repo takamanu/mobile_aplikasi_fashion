@@ -216,17 +216,17 @@ class AddProductsFragment : Fragment() {
 
             // Set the product name and points based on prediction
             val dummyUser = User(
-                id = 1,
+//                id = 1,
                 name = "john_doe",
                 email = "john_doe@example.com",
-                password = "password_hash",
-                role = 1,
-                points = 0,
-                fashion = null,
-                userVouchers = null,
-                deletedAt = "aaa",
-                updatedAt = "nnn",
-                createdAt = "kkk"
+//                password = "password_hash",
+                role = "cutsomer",
+//                points = 0,
+//                fashion = null,
+//                userVouchers = null,
+//                deletedAt = "aaa",
+//                updatedAt = "nnn",
+//                createdAt = "kkk"
             )
 
             val dummyProduct = ProductFashion(

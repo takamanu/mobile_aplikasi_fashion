@@ -121,13 +121,14 @@ class SupItemsManualFragment : Fragment() {
             val gson = Gson()
 
             val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-            val userId = loginResponse.user?.id
+//            val userId = loginResponse.user?.id
+            val userId = 1
 
             val file = Utils.compressImage(getFile)
 
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart = MultipartBody.Part.createFormData(
-                "fashion_url_image",
+                "attachment",
                 file.name,
                 requestImageFile
             )
@@ -142,20 +143,23 @@ class SupItemsManualFragment : Fragment() {
 
             val productRevisionName = binding.edModalFashionName.text.toString()
 
+            val utils = object : Utils.ApiCallbackString {
+                override fun onResponse(success: Boolean, message: String) {
+                    //                        showAlertDialog(success, message)
+                    Utils.showToast(context, message)
+                    // Navigate back to the AddProductsFragment
+
+
+                    //                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            }
+
             if (userId != null) {
                 storyViewModel.uploadImage(
                     productRevisionName,
                     0,
                     imageMultipart,
-                    userId,
-                    object : Utils.ApiCallbackString {
-                        override fun onResponse(success: Boolean, message: String) {
-                            //                        showAlertDialog(success, message)
-                            Utils.showToast(context, message)
-
-                            //                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                        }
-                    })
+                    utils)
             }
 
         } else {

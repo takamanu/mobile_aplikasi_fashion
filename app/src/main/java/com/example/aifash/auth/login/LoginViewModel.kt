@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aifash.Result
+import com.example.aifash.ResultAsync
 import com.example.aifash.api.ApiConfig
 import com.example.aifash.api.ApiService
 import kotlinx.coroutines.launch
@@ -14,8 +15,8 @@ class LoginViewModel : ViewModel() {
 
     private val apiService: ApiService = ApiConfig.createApiService()
 
-    private val _loginResult = MutableLiveData<Result<LoginResponse>>()
-    val loginResult: LiveData<Result<LoginResponse>> = _loginResult
+    private val _loginResult = MutableLiveData<ResultAsync<LoginResponse>>()
+    val loginResult: LiveData<ResultAsync<LoginResponse>> = _loginResult
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
@@ -33,19 +34,19 @@ class LoginViewModel : ViewModel() {
 
 
                     if (loginResponse != null) {
-                        _loginResult.value = Result.Success(loginResponse)
+                        _loginResult.value = ResultAsync.Success(loginResponse)
                         Log.d("LoginViewModel", "Berhasil kok")
                     } else {
                         Log.d("LoginViewModel", "Response body is null")
-                        _loginResult.value = Result.Error(Exception("Login failed"))
+                        _loginResult.value = ResultAsync.Error(Exception("Login failed"))
                     }
                 } else {
                     Log.d("LoginViewModel", "Response not successful: ${response.code()}")
-                    _loginResult.value = Result.Error(Exception("Login failed"))
+                    _loginResult.value = ResultAsync.Error(Exception("Login failed"))
                 }
             } catch (e: Exception) {
                 Log.e("LoginViewModel", "Exception: ${e.message}", e)
-                _loginResult.value = Result.Error(e)
+                _loginResult.value = ResultAsync.Error(e)
             }
         }
 

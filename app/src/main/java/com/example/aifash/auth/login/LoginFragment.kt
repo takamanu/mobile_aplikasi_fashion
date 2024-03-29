@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +16,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.aifash.MainActivity
 import com.example.aifash.MainActivity2
 import com.example.aifash.R
+import com.example.aifash.ResultAsync
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -61,10 +65,10 @@ class LoginFragment :Fragment() {
             }
 
             if (isValidEmail(email)) {
-                val intent = Intent(activity, MainActivity2::class.java)
-                startActivity(intent)
-                activity?.finish()
-//                viewModel.login(email, password)
+//                val intent = Intent(activity, MainActivity2::class.java)
+//                startActivity(intent)
+//                activity?.finish()
+                viewModel.login(email, password)
             } else {
                 val message = "Invalid email address!"
                 showSnackBar(message, RED)
@@ -74,28 +78,28 @@ class LoginFragment :Fragment() {
 
         }
 
-//        viewModel.loginResult.observe(viewLifecycleOwner) { result ->
-//            when (result) {
-//                is Result.Success -> {
-//                    val loginResponse = result.data
-//
-//                    val gson = Gson()
-//                    val loginResponseJson = gson.toJson(loginResponse)
-//                    sharedPreferences.edit().putString("loginResponse", loginResponseJson).apply()
-//
-//                    val token = loginResponse?.user?.token
-//                    val user = loginResponse?.user?.name
-//                    val role = loginResponse?.user?.role
-//
-//                    Log.d(TAG, "Login response: $loginResponse")
-//                    Log.d(TAG, "Token: $token")
-//                    Log.d(TAG, "User: $user")
+        viewModel.loginResult.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ResultAsync.Success -> {
+                    val loginResponse = result.data
+
+                    val gson = Gson()
+                    val loginResponseJson = gson.toJson(loginResponse)
+                    sharedPreferences.edit().putString("loginResponse", loginResponseJson).apply()
+
+                    val token = loginResponse?.user?.token?.accessToken
+                    val user = loginResponse?.user?.name
+//                    val role = loginResponse?.userrole
+
+                    Log.d(TAG, "Login response: $loginResponse")
+                    Log.d(TAG, "Token: $token")
+                    Log.d(TAG, "User: $user")
 //                    Log.d(TAG, "Role: $role")
-//                    Log.d(TAG, "Kalo disimpen jadi string: $loginResponseJson")
-//
-//                    val message = "Login success"
-//                    showSnackBar(message, GREEN)
-//
+                    Log.d(TAG, "Kalo disimpen jadi string: $loginResponseJson")
+
+                    val message = "Login success"
+                    showSnackBar(message, GREEN)
+
 //                    if (role == 1) {
 //                        lifecycleScope.launch {
 //                            delay(2000) // 2000 milliseconds (2 seconds)
@@ -104,28 +108,28 @@ class LoginFragment :Fragment() {
 //                            activity?.finish()
 //                        }
 //                    } else {
-//                        lifecycleScope.launch {
-//                            delay(2000) // 2000 milliseconds (2 seconds)
-//                            val intent = Intent(activity, MainActivity2::class.java)
-//                            startActivity(intent)
-//                            activity?.finish()
 //                        }
-//                    }
-//                }
-//                is Result.Error -> {
-//                    val exception = result.exception
-//                    val message = "Login failed: ${exception.message}"
-//                    showSnackBar(message, RED)
-//
-//                }
-//                else -> {
-//                    // Handle login error
-//                    val message = "Login failed: Contact Admin!"
-//                    showSnackBar(message, RED)
-//
-//                }
-//            }
-//        }
+                        lifecycleScope.launch {
+                            delay(2000) // 2000 milliseconds (2 seconds)
+                            val intent = Intent(activity, MainActivity2::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                    }
+                }
+                is ResultAsync.Error -> {
+                    val exception = result.exception
+                    val message = "Login failed: ${exception.message}"
+                    showSnackBar(message, RED)
+
+                }
+                else -> {
+                    // Handle login error
+                    val message = "Login failed: Contact Admin!"
+                    showSnackBar(message, RED)
+
+                }
+            }
+        }
     }
 
     private fun showSnackBar(argSatu: String, argDua: String) {
@@ -133,7 +137,7 @@ class LoginFragment :Fragment() {
             view?.let { Snackbar.make(it, argSatu, Snackbar.LENGTH_LONG) }
         val snackBarView = snackBar?.view
         val textView = snackBarView?.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView?.setTypeface(textView?.typeface, Typeface.BOLD)
+        textView?.setTypeface(textView.typeface, Typeface.BOLD)
         if (argDua == "red") {
             snackBar?.setBackgroundTint(resources.getColor(R.color.red))
             snackBar?.show()

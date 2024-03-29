@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
-    private const val BASE_URL = "https://aplikasi-fashion-go-yyq43lp3ka-as.a.run.app/"
+    private const val BASE_URL = "https://sea-lion-app-5x8mi.ondigitalocean.app/api/v1/"
     private const val ML_URL = "https://aifash-ml-2ape6j34pa-et.a.run.app/"
 
     fun createApiService(): ApiService {

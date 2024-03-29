@@ -41,7 +41,9 @@ class VoucherAdapter(
         val gson = Gson()
 
         val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-        val userId = loginResponse.user?.id
+//        val userId = loginResponse.user?.id
+        val userId = 1
+
 
         val item = voucherItems[position]
         holder.titleTextView.text = item.voucherName

@@ -7,6 +7,7 @@ import com.example.aifash.auth.register.RegisterRequest
 import com.example.aifash.auth.register.RegisterResponse
 import com.example.aifash.datamodel.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -15,14 +16,13 @@ import retrofit2.http.*
 interface ApiService {
 
     @Multipart
-//    @Headers("Content-Type: application/json", "Accept: application/json")
+    @Headers("Accept: application/json; charset=utf-8")
     @POST("fashion")
     fun postFashionItem(
-//        @Body request: FashionRequest
-        @Part("fashion_name") fashionName: String,
-        @Part("fashion_points") fashionPoints: Int,
-        @Part("user_id") userId: Int,
-        @Part file: MultipartBody.Part,
+        @Header("Authorization") bearerToken: String,
+        @Part("fashion_name") fashionName: RequestBody,
+        @Part("fashion_points") fashionPoints: RequestBody,
+        @Part attachment: MultipartBody.Part
     ): Call<FashionResponsePost>
 
     @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
@@ -34,7 +34,7 @@ interface ApiService {
     suspend fun getAllVoucher(): Response<VoucherResponse>
 
     @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
-    @POST("voucher/apply")
+    @POST("user-voucher")
     suspend fun redeemVoucher(@Body requestBody: RedeemVoucherRequest): Response<UserVoucherResponse>
 
     @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
@@ -76,7 +76,7 @@ interface ApiService {
     ): Response<LoginResponse>
 
     @Headers("Content-Type: application/json", "Accept: application/json")
-    @POST("users")
+    @POST("register")
     suspend fun register(
         @Body request: RegisterRequest
     ): Response<RegisterResponse>

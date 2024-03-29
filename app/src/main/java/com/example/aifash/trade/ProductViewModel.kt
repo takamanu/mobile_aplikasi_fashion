@@ -10,7 +10,9 @@ import com.example.aifash.api.ApiService
 import com.example.aifash.datamodel.*
 import com.example.aifash.ui.users.Utils
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import org.json.JSONTokener
 
@@ -47,7 +49,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 //                val fullProductResponse = apiService.getDetailProducts(productList[0].categoryId)
 //                Log.d("ProductViewModel", "Response Category: ${productList[0].categoryId}")
 //                Log.d("ProductViewModel", "Response: $productList")
-                if (productList.isNullOrEmpty()) {
+                if (productList.isEmpty()) {
                     _searchResultEmpty.value = true
                     _products.value = productList
                 } else {
@@ -87,17 +89,19 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun uploadImage(
+
         productName: String,
         productPoints: Int,
         imageMultipart: MultipartBody.Part,
-        userId: Int,
+//        token: String,
         callback: Utils.ApiCallbackString
     ) {
-        val productPointsReal = "Will be announced"
+        val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTE4MTU1NDYsImlhdCI6MTcxMTcyOTE0NiwiaWQiOjMsInJvbGUiOiJjdXN0b21lciIsInN0YXR1cyI6ImFjdGl2ZSJ9.SxGUdnVFkvjj-p66twszCRJPg7ueVBG2SrKxDzmw7eE"
         Log.d(TAG, "Data sent: $imageMultipart")
         _isLoading.value = true
+
         val service =
-            ApiConfig.createApiService().postFashionItem(productName, productPoints, userId, imageMultipart)
+            ApiConfig.createApiService().postFashionItem(token, productName.toRequestBody("text/plain".toMediaTypeOrNull()), productPoints.toString().toRequestBody("text/plain".toMediaTypeOrNull()), imageMultipart)
         Log.d(TAG, "Data receive: $service")
 
 
