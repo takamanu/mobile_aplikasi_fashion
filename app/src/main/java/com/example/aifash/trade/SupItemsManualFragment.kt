@@ -32,11 +32,7 @@ class SupItemsManualFragment : Fragment() {
     private var _binding: FragmentSupItemsManualBinding? = null
     private val binding get() = _binding!!
     private var getFile: File? = null
-    private var result: Bitmap? = null
-    private val apiService: ApiService = ApiConfig.createApiService()
-
     private lateinit var sharedPreferences: SharedPreferences
-    private val addProductsViewModel: AddProductsViewModel by viewModels()
     private lateinit var storyViewModel: ProductViewModel
 
     override fun onCreateView(
@@ -45,9 +41,23 @@ class SupItemsManualFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSupItemsManualBinding.inflate(inflater, container, false)
-//        sessionPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
 
         return binding.root
+    }
+
+    private fun getUserData(): LoginResponse {
+        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
+
+        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
+        val gson = Gson()
+
+        return gson.fromJson(loginResponseJson, LoginResponse::class.java)
+    }
+
+    private fun getProductData(): ProductFashion {
+        val productJson = arguments?.getString(SupItemsFragment.ARG_PRODUCT_JSON)
+
+        return Gson().fromJson(productJson, ProductFashion::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,21 +65,12 @@ class SupItemsManualFragment : Fragment() {
 
         storyViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
 
-        val productJson = arguments?.getString(ARG_PRODUCT_JSON)
-        val product = Gson().fromJson(productJson, ProductFashion::class.java)
         val filePath = arguments?.getString(ARG_FILE)
-
-
         getFile = if (filePath != null) File(filePath) else null
 
-        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
-        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
-        val gson = Gson()
+        val userName = getUserData().user?.name
 
-        val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-        val userName = loginResponse.user?.name
-
-        binding.tvUser.text = "User: $userName"
+        binding.tvUser.text = String.format("User: %s", userName)
 
         binding.modalContent.translationY = binding.modalCard.height.toFloat()
         binding.modalContent.animate()
@@ -84,26 +85,16 @@ class SupItemsManualFragment : Fragment() {
 
 
         binding.btnDonate.setOnClickListener {
-            val productJson = Gson().toJson(product)
-
-            Log.d("SupItemsFragment", "This is the data sent: $productJson")
 
             val fragmentManager = parentFragmentManager
             fragmentManager.popBackStack("AddProductsFragmentTag", FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
             lifecycleScope.launch {
-                // Pass the file to the uploadImage function
-                Log.d(TAG, "File pas mau masuk view model = $getFile")
 
                 uploadImage(getFile, requireContext())
             }
 
-            // Navigate to NotificationsFragment
-//            navController.navigate(R.id.navigation_notifications)
         }
-
-
-
     }
 
     override fun onDestroyView() {
@@ -113,16 +104,8 @@ class SupItemsManualFragment : Fragment() {
 
     private fun uploadImage(getFile: File?, context: Context) {
         if (getFile != null) {
-            val productJson = arguments?.getString(ARG_PRODUCT_JSON)
-            val product = Gson().fromJson(productJson, ProductFashion::class.java)
 
-            sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
-            val loginResponseJson = sharedPreferences.getString("loginResponse", null)
-            val gson = Gson()
-
-            val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-//            val userId = loginResponse.user?.id
-            val userId = 1
+            val token = getUserData().user?.token?.accessToken
 
             val file = Utils.compressImage(getFile)
 
@@ -132,35 +115,22 @@ class SupItemsManualFragment : Fragment() {
                 file.name,
                 requestImageFile
             )
-
-
-            Log.d("SupItemsFragment", "Name: ${product.name}, Points: ${product.points}, Image $file")
-
-
-            // Directly call the ApiService function
-
-            Log.d(TAG, "Requesting API: ${product.name}, ${product.points}, 1, $imageMultipart")
-
             val productRevisionName = binding.edModalFashionName.text.toString()
 
             val utils = object : Utils.ApiCallbackString {
                 override fun onResponse(success: Boolean, message: String) {
-                    //                        showAlertDialog(success, message)
                     Utils.showToast(context, message)
-                    // Navigate back to the AddProductsFragment
-
-
-                    //                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
             }
 
-            if (userId != null) {
-                storyViewModel.uploadImage(
-                    productRevisionName,
-                    0,
-                    imageMultipart,
-                    utils)
-            }
+                if (token != null) {
+                    storyViewModel.uploadImage(
+                        productRevisionName,
+                        0,
+                        imageMultipart,
+                        token,
+                        utils)
+                }
 
         } else {
             Utils.showToast(requireContext(), getString(R.string.no_file))

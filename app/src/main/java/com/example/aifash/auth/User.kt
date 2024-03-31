@@ -11,9 +11,14 @@ data class User(
 
     @SerializedName("name")
     val name: String,
+
     @SerializedName("email")
     val email: String,
+
     @SerializedName("role")
     val role: String,
+
+    @SerializedName("points")
+    val points: Int?,
 
 ) : Parcelable

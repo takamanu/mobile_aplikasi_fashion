@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.aifash.R
@@ -30,31 +31,34 @@ class VoucherAdapter(
         val button: Button = itemView.findViewById(R.id.btn_reedem)
     }
 
+        private fun getUserData(): LoginResponse? {
+        sharedPreferences = context.getSharedPreferences("session", Context.MODE_PRIVATE)
+
+        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
+        val gson = Gson()
+
+        return gson.fromJson(loginResponseJson, LoginResponse::class.java)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
         return VoucherViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: VoucherViewHolder, position: Int) {
-        sharedPreferences = context.getSharedPreferences("session", Context.MODE_PRIVATE)
-        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
-        val gson = Gson()
-
-        val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-//        val userId = loginResponse.user?.id
-        val userId = 1
-
+        val token = getUserData()?.user?.token?.accessToken
 
         val item = voucherItems[position]
         holder.titleTextView.text = item.voucherName
         holder.contentTextView.text = "Redeem for ${item.voucherPrice} points"
         holder.statusTextView.text = item.voucherCode
         holder.button.setOnClickListener {
-            item.iD?.let { it1 ->
-                if (userId != null) {
-                    viewModel.redeemVoucher(userId, it1)
+            item.ID?.let { it1 ->
+                if (token != null) {
+                    viewModel.redeemVoucher(token, it1)
                 }
             }
+
         }
         Glide.with(holder.imageView)
             .load(item.voucherUrlImage)

@@ -1,6 +1,7 @@
 package com.example.aifash.ui.users
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
@@ -50,8 +51,6 @@ class AddProductsFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         binding.pbScan.visibility = View.GONE
         binding.cvWarning.visibility = View.VISIBLE
@@ -110,11 +109,7 @@ class AddProductsFragment : Fragment() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-
-
     private fun submitData(productJson: String?, file: File?) {
-        Log.d(TAG, "Submit data: $productJson")
-        Log.d(TAG, "Submit data: $file")
 
         val fragment = productJson?.let { SupItemsFragment.newInstance(it, file) }
 
@@ -124,21 +119,20 @@ class AddProductsFragment : Fragment() {
         binding.btnSubmit.visibility = View.GONE
         binding.btnWrongPredict.visibility = View.GONE
 
-
-
         if (fragment != null) {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(android.R.id.content, fragment)
                 .addToBackStack("AddProductsFragmentTag")
                 .commit()
         }
-    }
 
+    }
 
     private fun startCameraX() {
         launcherIntentCameraX.launch(Intent(requireContext(), CameraActivity::class.java))
     }
 
+    @SuppressLint("SetTextI18n")
     private val launcherIntentCameraX = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { activityResult ->
@@ -153,13 +147,10 @@ class AddProductsFragment : Fragment() {
                     isRearCamera
                 )
 
-            // Update the ImageView or handle the bitmap as needed
-//            binding.cvWarning.visibility = View.GONE
             binding.tvWarning.text = "Click predict to get the result!"
             binding.ivAddProducts.setImageBitmap(bitmapResult)
         }
     }
-
 
     private fun startGallery() {
         val intent = Intent()
@@ -169,6 +160,7 @@ class AddProductsFragment : Fragment() {
         launcherIntentGallery.launch(chooser)
     }
 
+    @SuppressLint("SetTextI18n")
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -181,6 +173,18 @@ class AddProductsFragment : Fragment() {
         }
     }
 
+    private fun loadModelFile():  Array<FloatArray> {
+        val interpreter = Interpreter(loadModelFile(requireContext().assets, "lite_model.tflite"))
+        val originalBitmap = BitmapFactory.decodeFile(getFile!!.path)
+        val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 28, 28, false)
+        val byteBuffer = convertBitmapToByteBuffer(resizedBitmap)
+
+        val result = Array(1) { FloatArray(10) }
+        interpreter.run(byteBuffer, result)
+
+        return result
+    }
+
     private fun uploadImage() {
         if (getFile != null) {
             binding.pbScan.visibility = View.VISIBLE
@@ -191,55 +195,31 @@ class AddProductsFragment : Fragment() {
             binding.btnSubmit.visibility = View.VISIBLE
             binding.btnWrongPredict.visibility = View.VISIBLE
 
-            // Load the TensorFlow Lite model
-            val interpreter = Interpreter(loadModelFile(requireContext().assets, "lite_model.tflite"))
-
-            // Load the image file and resize it to match the expected input size
-            val originalBitmap = BitmapFactory.decodeFile(getFile!!.path)
-            val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 28, 28, false)
-
-            // Convert the resized bitmap to a ByteBuffer
-            val byteBuffer = convertBitmapToByteBuffer(resizedBitmap)
-
-            // Perform inference
-            val result = Array(1) { FloatArray(10) } // Assuming NUM_CLASSES is 10
-            interpreter.run(byteBuffer, result)
-
-            // Find the predicted class
+            val result = loadModelFile()
             val (predictedClass, points) = findPredictedClass(result)
 
             binding.pbScan.visibility = View.GONE
-            binding.tvProductsSelected.text = "Predicted Class: $predictedClass"
-            binding.tvTotalPointsGiven.text = "$points points"
-            val carbon = points.toFloat().div(100)
-            binding.tvTotalCarbon.text = "Carbon Reduction Value: $carbon kg Co2e"
+            binding.tvProductsSelected.text = String.format("Predicted Class: %s", predictedClass)
+            binding.tvTotalPointsGiven.text = String.format("%d points", points)
+            binding.tvTotalCarbon.text = String.format("Carbon Reduction Value: %.2f kg Co2e", points.toFloat().div(100))
 
-            // Set the product name and points based on prediction
             val dummyUser = User(
-//                id = 1,
                 name = "john_doe",
                 email = "john_doe@example.com",
-//                password = "password_hash",
-                role = "cutsomer",
-//                points = 0,
-//                fashion = null,
-//                userVouchers = null,
-//                deletedAt = "aaa",
-//                updatedAt = "nnn",
-//                createdAt = "kkk"
+                role = "customer",
+                points = 100,
             )
 
             val dummyProduct = ProductFashion(
                 user = dummyUser,
                 categoryId = 1,
-                name = predictedClass, // Set the predicted class as the name
-                points = points // Set the predicted points
+                name = predictedClass,
+                points = points
             )
 
             val gson = Gson()
             val productJson = gson.toJson(dummyProduct)
             Companion.productJson = productJson
-            Log.d(TAG, "$productJson")
 
         } else {
             Utils.showToast(requireContext(), getString(R.string.no_file))
@@ -261,9 +241,6 @@ class AddProductsFragment : Fragment() {
         return buffer
     }
 
-
-
-    // Convert a bitmap to a ByteBuffer
     private fun convertBitmapToByteBuffer(bitmap: Bitmap): ByteBuffer {
         val byteBuffer = ByteBuffer.allocateDirect(4 * 28 * 28 * 1) // Replace 28 and 1 with your input size and channels
         byteBuffer.order(ByteOrder.nativeOrder())
@@ -276,9 +253,7 @@ class AddProductsFragment : Fragment() {
         return byteBuffer
     }
 
-    // Find the predicted class (you can adapt this based on your model's output)
     private fun findPredictedClass(result: Array<FloatArray>): Pair<String, Int> {
-        // Replace this logic with your model-specific logic to find the predicted class
         val maxIndex = result[0].indices.maxByOrNull { result[0][it] } ?: 0
         val classNames = arrayOf(
             "T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
@@ -296,9 +271,8 @@ class AddProductsFragment : Fragment() {
             7 -> 320
             8 -> 230
             9 -> 260
-            else -> 70 // Default points
+            else -> 70
         }
-
         return Pair(predictedClassName, points)
     }
 

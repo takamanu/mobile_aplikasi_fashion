@@ -23,6 +23,15 @@ class VoucherRedeemedFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+        private fun getUserData(): LoginResponse? {
+        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
+
+        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
+        val gson = Gson()
+
+        return gson.fromJson(loginResponseJson, LoginResponse::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,46 +39,23 @@ class VoucherRedeemedFragment : Fragment() {
     ): View {
         _binding = FragmentVoucherRedeemedBinding.inflate(inflater, container, false)
 
-        Log.d(TAG, "I can access the ${TAG}.")
-
-
-        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
-        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
-        val gson = Gson()
-
-        val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-//        val userId = loginResponse.user?.id
-        val userId = 1
-
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = VoucherUserAdapter(emptyList()) // Initially empty
         recyclerView.adapter = adapter
 
-//        if (userId != null) {
-        homeViewModel.getCurrentUserData(userId)
-//        }
+        if (getUserData()?.user?.token?.accessToken != null) {
+            getUserData()?.user?.token?.accessToken?.let { homeViewModel.getUserVouchers(it) }
+        }
 
-        homeViewModel.userData.observe(viewLifecycleOwner) {userData ->
-            if (userData != null) {
-//                val sentUserData = userData.userVouchers
-//                adapter = sentUserData?.let { VoucherUserAdapter(it) }!!
+        homeViewModel.voucherData.observe(viewLifecycleOwner) {voucherData ->
+            if (voucherData != null) {
+                adapter = VoucherUserAdapter(voucherData)
                 recyclerView.adapter = adapter
             }
         }
 
-
-        // Set up your RecyclerView adapter and data here
-        // Example:
-        // val adapter = RecyclerViewAdapter(data)
-        // recyclerView.adapter = adapter
-
         return binding.root
-    }
-
-    fun fmt(msg: String): Any {
-        println(msg)
-        return msg
     }
 
     companion object {

@@ -1,16 +1,20 @@
 package com.example.aifash.api
 
 import com.example.aifash.*
+import com.example.aifash.auth.User
 import com.example.aifash.auth.UserResponse
 import com.example.aifash.auth.login.LoginResponse
+import com.example.aifash.auth.login.LoginUserResponse
 import com.example.aifash.auth.register.RegisterRequest
 import com.example.aifash.auth.register.RegisterResponse
 import com.example.aifash.datamodel.*
+import kotlinx.parcelize.RawValue
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
+import java.text.Format
 
 
 interface ApiService {
@@ -31,29 +35,37 @@ interface ApiService {
 
     @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
     @GET("voucher")
-    suspend fun getAllVoucher(): Response<VoucherResponse>
+    suspend fun getAllVoucher(): Response<FormatResponse<List<VoucherItem>>>
 
-    @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
+    @FormUrlEncoded
+    @Headers("Accept: application/json; charset=utf-8")
     @POST("user-voucher")
-    suspend fun redeemVoucher(@Body requestBody: RedeemVoucherRequest): Response<UserVoucherResponse>
+    suspend fun redeemVoucher(
+        @Header("Authorization") token: String,
+        @Field("voucher_id") voucherID: Int?,
+        ): Response<FormatResponse<UserVoucherItem>>
 
     @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
-    @GET("users/{id}")
+    @GET("user/profile")
     suspend fun getCurrentUserData(
-        @Path("id") id: Int
-    ): Response<UserResponse>
+        @Header("Authorization") token: String,
+    ): Response<FormatResponse<User>>
+
+    @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
+    @GET("fashion/user")
+    suspend fun getUserProducts(
+        @Header("Authorization") token: String,
+    ): Response<FormatResponse<List<UserFashions>>>
+
+    @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
+    @GET("voucher/user")
+    suspend fun getUserVouchers(
+        @Header("Authorization") token: String,
+    ): Response<FormatResponse<List<UserVoucherItem>>>
 
     @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
     @GET("products/search")
     suspend fun searchProducts(@Query("name") query: String): Response<ProductResponse>
-
-//    @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
-//    @GET("user/{id}")
-//    suspend fun getDetailProducts(
-//        @Path("id") id: Int?
-//    ): Response<ProductResponse>
-
-
 
     @Headers("Content-Type: application/json; charset=utf-8", "Accept: application/json; charset=utf-8")
     @GET("categories")
@@ -72,8 +84,7 @@ interface ApiService {
     suspend fun login(
         @Field("email") email: String,
         @Field("password") password: String
-//        @Body request: LoginRequest
-    ): Response<LoginResponse>
+    ): Response<FormatResponse<LoginUserResponse>>
 
     @Headers("Content-Type: application/json", "Accept: application/json")
     @POST("register")

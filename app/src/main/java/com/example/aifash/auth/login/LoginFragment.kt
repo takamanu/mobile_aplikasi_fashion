@@ -43,9 +43,17 @@ class LoginFragment :Fragment() {
         etEmail = rootView.findViewById(R.id.ed_login_email)
         etPassword = rootView.findViewById(R.id.ed_login_password)
         btnLogin = rootView.findViewById(R.id.btn_login)
-        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
         return rootView
     }
+
+//    private fun getUserData(): LoginResponse? {
+//        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
+//
+//        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
+//        val gson = Gson()
+//
+//        return gson.fromJson(loginResponseJson, LoginResponse::class.java)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,24 +65,12 @@ class LoginFragment :Fragment() {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
 
-            lifecycleScope.launch {
-                delay(2000) // 2000 milliseconds (2 seconds)
-                val intent = Intent(activity, MainActivity2::class.java)
-                startActivity(intent)
-                activity?.finish()
-            }
-
             if (isValidEmail(email)) {
-//                val intent = Intent(activity, MainActivity2::class.java)
-//                startActivity(intent)
-//                activity?.finish()
                 viewModel.login(email, password)
             } else {
                 val message = "Invalid email address!"
                 showSnackBar(message, RED)
             }
-
-
 
         }
 
@@ -83,37 +79,17 @@ class LoginFragment :Fragment() {
                 is ResultAsync.Success -> {
                     val loginResponse = result.data
 
-                    val gson = Gson()
-                    val loginResponseJson = gson.toJson(loginResponse)
+                    val loginResponseJson = Gson().toJson(loginResponse)
                     sharedPreferences.edit().putString("loginResponse", loginResponseJson).apply()
-
-                    val token = loginResponse?.user?.token?.accessToken
-                    val user = loginResponse?.user?.name
-//                    val role = loginResponse?.userrole
-
-                    Log.d(TAG, "Login response: $loginResponse")
-                    Log.d(TAG, "Token: $token")
-                    Log.d(TAG, "User: $user")
-//                    Log.d(TAG, "Role: $role")
-                    Log.d(TAG, "Kalo disimpen jadi string: $loginResponseJson")
 
                     val message = "Login success"
                     showSnackBar(message, GREEN)
 
-//                    if (role == 1) {
-//                        lifecycleScope.launch {
-//                            delay(2000) // 2000 milliseconds (2 seconds)
-//                            val intent = Intent(activity, MainActivity::class.java)
-//                            startActivity(intent)
-//                            activity?.finish()
-//                        }
-//                    } else {
-//                        }
-                        lifecycleScope.launch {
-                            delay(2000) // 2000 milliseconds (2 seconds)
-                            val intent = Intent(activity, MainActivity2::class.java)
-                            startActivity(intent)
-                            activity?.finish()
+                    lifecycleScope.launch {
+                        delay(2000)
+                        val intent = Intent(activity, MainActivity2::class.java)
+                        startActivity(intent)
+                        activity?.finish()
                     }
                 }
                 is ResultAsync.Error -> {

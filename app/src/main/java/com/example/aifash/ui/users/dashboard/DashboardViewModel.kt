@@ -32,33 +32,26 @@ class DashboardViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = apiService.getAllVoucher()
-                val productResponse = response.body()
-                val productList = productResponse?.voucherItems
-//                val fullProductResponse = apiService.getDetailProducts(productList[0].categoryId)
-                Log.d("ProductViewModel", "Response Category: ${productList?.get(0)?.voucherName}")
-                Log.d("ProductViewModel", "Response: $productList")
-                _productsVoucher.value = productList
-                // Handle API error
+                _productsVoucher.value = response.body()?.data
             } catch (e: Exception) {
                 Log.d(TAG, "Error: ${e.message}", e)
-                // Handle network error
             }
         }
     }
 
-    fun redeemVoucher(userID: Int, voucherID: Int) {
+    fun redeemVoucher(token: String, voucherID: Int) {
         viewModelScope.launch {
             try {
-                Log.d(TAG, "Requesting API: $voucherID, $userID")
-                val request = RedeemVoucherRequest(userID, voucherID)
-                val response = apiService.redeemVoucher(request)
+                val bearerToken = String.format("Bearer %s", token)
+                val response = apiService.redeemVoucher(bearerToken, voucherID)
                 Log.d(TAG, "Response API: ${response.body()}")
 
-                val productResponse = response.body()
-                val productList = productResponse?.data
-//                val fullProductResponse = apiService.getDetailProducts(productList[0].categoryId)
-                _productsVoucherUser.value = productList
-                // Handle API error
+                if (response.isSuccessful) {
+                    _productsVoucherUser.value = response.body()?.data
+                } else {
+//                    _productsVoucherUser.value = null
+                    Log.d(TAG, "Error: failed to claim voucher")
+                }
             } catch (e: Exception) {
                 Log.d(TAG, "Error: ${e.message}", e)
 

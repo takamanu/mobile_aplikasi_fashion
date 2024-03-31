@@ -1,5 +1,6 @@
 package com.example.aifash.ui.users
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.aifash.R
 import com.example.aifash.datamodel.FashionItem
+import com.example.aifash.datamodel.UserFashions
 
-class FashionAdapter(private val fashionItems: List<FashionItem?>) : RecyclerView.Adapter<FashionAdapter.FashionViewHolder>() {
+class FashionAdapter(private val fashionItems: List<UserFashions?>) : RecyclerView.Adapter<FashionAdapter.FashionViewHolder>() {
 
     inner class FashionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.tvName)
@@ -25,8 +27,9 @@ class FashionAdapter(private val fashionItems: List<FashionItem?>) : RecyclerVie
         return FashionViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FashionViewHolder, position: Int) {
-        val item = fashionItems?.get(position)
+        val item = fashionItems[position]
         holder.titleTextView.text = item?.fashionName
         holder.contentTextView.text = "Points achieved: ${item?.fashionPoints.toString()}"
         val carbon = item?.fashionPoints?.toFloat()?.div(100)
@@ -47,7 +50,7 @@ class FashionAdapter(private val fashionItems: List<FashionItem?>) : RecyclerVie
     }
 
     override fun getItemCount(): Int {
-        return fashionItems!!.size
+        return fashionItems.size
     }
 
 

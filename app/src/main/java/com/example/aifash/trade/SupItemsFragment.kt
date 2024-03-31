@@ -1,5 +1,6 @@
 package com.example.aifash.trade
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
@@ -34,11 +35,8 @@ class SupItemsFragment : Fragment() {
     private var _binding: FragmentSupItemsBinding? = null
     private val binding get() = _binding!!
     private var getFile: File? = null
-    private var result: Bitmap? = null
-    private val apiService: ApiService = ApiConfig.createApiService()
 
     private lateinit var sharedPreferences: SharedPreferences
-    private val addProductsViewModel: AddProductsViewModel by viewModels()
     private lateinit var storyViewModel: ProductViewModel
 
     override fun onCreateView(
@@ -50,32 +48,36 @@ class SupItemsFragment : Fragment() {
         return binding.root
     }
 
+    private fun getUserData(): LoginResponse {
+        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
+
+        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
+        val gson = Gson()
+
+        return gson.fromJson(loginResponseJson, LoginResponse::class.java)
+    }
+
+    private fun getProductData(): ProductFashion {
+        val productJson = arguments?.getString(ARG_PRODUCT_JSON)
+
+        return Gson().fromJson(productJson, ProductFashion::class.java)
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         storyViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
 
-        val productJson = arguments?.getString(ARG_PRODUCT_JSON)
-        val product = Gson().fromJson(productJson, ProductFashion::class.java)
-
         val filePath = arguments?.getString(ARG_FILE)
         getFile = if (filePath != null) File(filePath) else null
 
-        Log.d(TAG, "File = $getFile")
+        val userName = getUserData().user?.name
+        val token = getUserData().user?.token?.accessToken
 
-        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
-        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
-        val gson = Gson()
-
-        val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-        val userName = loginResponse.user?.name
-
-
-        binding.tvName.text = product.name
-//        binding.tvCategory.text = "Category: " + product.categoryId.toString()
-        binding.tvAmount.text = "Amount: ${product.points}"
-
-        binding.tvUser.text = "User: $userName"
+        binding.tvName.text = getProductData().name
+        binding.tvAmount.text = String.format("Amount: %d", getProductData().points)
+        binding.tvUser.text = String.format("User: %s", userName)
 
         binding.modalContent.translationY = binding.modalCard.height.toFloat()
         binding.modalContent.animate()
@@ -87,32 +89,16 @@ class SupItemsFragment : Fragment() {
             val fragmentManager = parentFragmentManager
             fragmentManager.popBackStack("AddProductsFragmentTag", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
-
-
         binding.btnDonate.setOnClickListener {
-            val productJson = Gson().toJson(product)
-
-            val navController = (requireActivity() as MainActivity2).findNavController(R.id.nav_host_fragment_activity_main2)
-//            addProductsViewModel.fetchProducts()
-            Log.d("SupItemsFragment", "This is the data sent: $productJson")
-
             val fragmentManager = parentFragmentManager
             fragmentManager.popBackStack("AddProductsFragmentTag", FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
-
-
             lifecycleScope.launch {
-                // Pass the file to the uploadImage function
-                Log.d(TAG, "File pas mau masuk view model = $getFile")
-
-                uploadImage(getFile, requireContext())
+                if (token != null) {
+                    uploadImage(getFile, requireContext(), token)
+                }
             }
-
-            // Navigate to NotificationsFragment
-//            navController.navigate(R.id.navigation_notifications)
         }
-
-
 
     }
 
@@ -121,20 +107,9 @@ class SupItemsFragment : Fragment() {
         _binding = null
     }
 
-    private fun uploadImage(getFile: File?, context: Context) {
+    private fun uploadImage(getFile: File?, context: Context, token: String) {
         if (getFile != null) {
-            val productJson = arguments?.getString(ARG_PRODUCT_JSON)
-            val product = Gson().fromJson(productJson, ProductFashion::class.java)
-
-            sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
-            val loginResponseJson = sharedPreferences.getString("loginResponse", null)
-            val gson = Gson()
-
-            val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-//            val userId = loginResponse.user?.id
-            val userId = 1
             val file = Utils.compressImage(getFile)
-
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart = MultipartBody.Part.createFormData(
                 "attachment",
@@ -142,35 +117,20 @@ class SupItemsFragment : Fragment() {
                 requestImageFile
             )
 
-            Log.d("SupItemsFragment", "Name: ${product.name}, Points: ${product.points}, Image $file")
-
-
-            // Directly call the ApiService function
-
-            Log.d(TAG, "Requesting API: ${product.name}, ${product.points}, 1, $imageMultipart")
-
             val utils = object : Utils.ApiCallbackString {
                 override fun onResponse(success: Boolean, message: String) {
-                    //                        showAlertDialog(success, message)
                     Utils.showToast(context, message)
-                    // Navigate back to the AddProductsFragment
-
-
-                    //                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
             }
 
-            product.name?.let {
-                product.points?.let { it1 ->
-                    if (userId != null) {
+            getProductData().name?.let {
+                getProductData().points?.let { it1 ->
                         storyViewModel.uploadImage(
                             it,
                             it1,
                             imageMultipart,
-//                            userId,
+                            token,
                             utils)
-
-                    }
                 }
             }
 
@@ -184,13 +144,15 @@ class SupItemsFragment : Fragment() {
         const val TAG = "SupItemsFragment"
         const val ARG_PRODUCT_JSON = "arg_product_json"
         const val ARG_FILE = "arg_file"
+        const val NO_FILE_UPLOADED = "No file uploaded"
+
 
         fun newInstance(productJson: String, file: File?): SupItemsFragment {
             val fragment = SupItemsFragment()
             val args = Bundle()
             args.putString(ARG_PRODUCT_JSON, productJson)
             if (file != null) {
-                args.putString(ARG_FILE, file.absolutePath) // Store the file path as a String
+                args.putString(ARG_FILE, file.absolutePath)
             }
             fragment.arguments = args
             return fragment

@@ -25,8 +25,6 @@ class FashionSearchFragment : Fragment() {
     private lateinit var adapter: FashionAdapter
     private lateinit var recyclerView: RecyclerView
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,7 +71,7 @@ class FashionSearchFragment : Fragment() {
 
         productViewModel.productsFashion.observe(viewLifecycleOwner) {productsFashion ->
             if (productsFashion != null) {
-                adapter = productsFashion?.let { FashionAdapter(it) }!!
+//                adapter = productsFashion?.let { FashionAdapter(it) }!!
                 recyclerView.adapter = adapter
             }
         }

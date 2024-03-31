@@ -9,14 +9,15 @@ import com.example.aifash.Result
 import com.example.aifash.ResultAsync
 import com.example.aifash.api.ApiConfig
 import com.example.aifash.api.ApiService
+import com.example.aifash.datamodel.FormatResponse
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
     private val apiService: ApiService = ApiConfig.createApiService()
 
-    private val _loginResult = MutableLiveData<ResultAsync<LoginResponse>>()
-    val loginResult: LiveData<ResultAsync<LoginResponse>> = _loginResult
+    private val _loginResult = MutableLiveData<ResultAsync<FormatResponse<LoginUserResponse>>>()
+    val loginResult: LiveData<ResultAsync<FormatResponse<LoginUserResponse>>> = _loginResult
 
     fun login(email: String, password: String) {
         viewModelScope.launch {

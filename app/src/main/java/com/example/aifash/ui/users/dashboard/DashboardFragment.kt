@@ -37,7 +37,7 @@ class DashboardFragment : Fragment() {
 
 
         recyclerView = binding.recyclerView
-        adapter = VoucherAdapter(emptyList(), dashboardViewModel, requireContext()) // Initially empty
+        adapter = VoucherAdapter(emptyList(), dashboardViewModel, requireContext())
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
@@ -45,7 +45,6 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.searchProductsVoucher()
 
         dashboardViewModel.productsVoucher.observe(viewLifecycleOwner) { productsVoucher ->
-//            val productResponse = productsFashion[0].id
             adapter = productsVoucher?.let { VoucherAdapter(it, dashboardViewModel, requireContext()) }!!
             recyclerView.adapter = adapter
         }
@@ -54,7 +53,7 @@ class DashboardFragment : Fragment() {
             if (productsVoucherUser == null) {
                 Toast.makeText(requireContext(), "Failed to redeem: Not sufficient points!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "You have redeemed: ${productsVoucherUser?.voucher?.voucherName}!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "You have redeemed the voucher!", Toast.LENGTH_SHORT).show()
             }
         }
 

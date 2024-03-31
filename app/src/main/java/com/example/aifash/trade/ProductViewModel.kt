@@ -93,17 +93,15 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         productName: String,
         productPoints: Int,
         imageMultipart: MultipartBody.Part,
-//        token: String,
+        token: String,
         callback: Utils.ApiCallbackString
     ) {
-        val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTE4MTU1NDYsImlhdCI6MTcxMTcyOTE0NiwiaWQiOjMsInJvbGUiOiJjdXN0b21lciIsInN0YXR1cyI6ImFjdGl2ZSJ9.SxGUdnVFkvjj-p66twszCRJPg7ueVBG2SrKxDzmw7eE"
         Log.d(TAG, "Data sent: $imageMultipart")
         _isLoading.value = true
+        val bearerToken = "Bearer $token"
 
-        val service =
-            ApiConfig.createApiService().postFashionItem(token, productName.toRequestBody("text/plain".toMediaTypeOrNull()), productPoints.toString().toRequestBody("text/plain".toMediaTypeOrNull()), imageMultipart)
+        val service = ApiConfig.createApiService().postFashionItem(bearerToken, productName.toRequestBody("text/plain".toMediaTypeOrNull()), productPoints.toString().toRequestBody("text/plain".toMediaTypeOrNull()), imageMultipart)
         Log.d(TAG, "Data receive: $service")
-
 
         service.enqueue(object : retrofit2.Callback<FashionResponsePost> {
             override fun onResponse(

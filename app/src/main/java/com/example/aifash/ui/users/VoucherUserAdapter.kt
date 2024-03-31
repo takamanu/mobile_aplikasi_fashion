@@ -1,5 +1,6 @@
 package com.example.aifash.ui.users
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.aifash.R
 import com.example.aifash.datamodel.UserVoucherItem
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class VoucherUserAdapter(
     private val voucherItems: List<UserVoucherItem?>
@@ -30,20 +34,27 @@ class VoucherUserAdapter(
         return VoucherViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: VoucherViewHolder, position: Int) {
 
         val item = voucherItems[position]
-        holder.titleTextView.text = item?.voucher?.voucherName
-        holder.contentTextView.text = "Redeem for ${item?.voucher?.voucherPrice} points"
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'", Locale.getDefault())
+        val outputDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+        val parsedDate = item?.voucherExpiredDate?.let { inputDateFormat.parse(it) }
+        val formattedDate = outputDateFormat.format(parsedDate ?: Date())
+
+        holder.titleTextView.text = "Voucher Touch N Go 50 RM"
+        holder.contentTextView.text = String.format("Exp Date: %s", formattedDate)
         when (item?.used) {
-            true -> holder.statusTextView.text = "Status: used"
-            false -> holder.statusTextView.text = "Status: not used"
+            "used" -> holder.statusTextView.text = "Status: used"
+            "not_used" -> holder.statusTextView.text = "Status: not used"
             else -> holder.statusTextView.text = "Status: not used"
         }
-        Log.d(TAG, "Check image URL: ${item?.voucher?.voucherUrlImage}")
-//        holder.button.setOnClickListener {}
+
+        holder.button.text = "Use Voucher"
         Glide.with(holder.imageView)
-            .load(item?.voucher?.voucherUrlImage)
+            .load("https://mir-s3-cdn-cf.behance.net/projects/404/2588cc117095563.Y3JvcCwyMjc1LDE3NzksNTAsMA.png")
             .into(holder.imageView)
     }
 

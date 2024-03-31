@@ -25,14 +25,12 @@ class NotificationsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         viewPager = binding.viewPager
         tabLayout = binding.tabLayout
 
         val adapter = ViewPagerAdapter(childFragmentManager)
-
-        // Add your fragments
         adapter.addFrag(DonatedProductsFragment(), "My Products")
         adapter.addFrag(VoucherRedeemedFragment(), "My Voucher")
 
@@ -41,43 +39,6 @@ class NotificationsFragment : Fragment() {
 
         return binding.root
     }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
-    inner class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-
-        private val mFragmentList = ArrayList<Fragment>()
-        private val mFragmentTitleList = ArrayList<String>()
-
-        override fun getItem(position: Int): Fragment {
-            return mFragmentList[position]
-        }
-
-        override fun getCount(): Int {
-            return mFragmentList.size
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return mFragmentTitleList[position]
-        }
-
-//        fun addFrag(fragment: Fragment) {
-//            mFragmentList.add(fragment)
-//            mFragmentTitleList.add("")
-//        }
-
-        fun addFrag(fragment: Fragment, title: String) {
-            mFragmentList.add(fragment)
-            mFragmentTitleList.add(title)
-        }
-    }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

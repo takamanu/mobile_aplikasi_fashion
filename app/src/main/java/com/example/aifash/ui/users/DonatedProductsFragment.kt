@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aifash.auth.login.LoginResponse
 import com.example.aifash.databinding.FragmentDonatedProductsBinding
+import com.example.aifash.datamodel.ProductFashion
 import com.example.aifash.trade.ProductViewModel
+import com.example.aifash.trade.SupItemsFragment
 import com.example.aifash.ui.users.home.HomeViewModel
 import com.google.gson.Gson
 
@@ -28,6 +30,21 @@ class DonatedProductsFragment : Fragment() {
     private val productViewModel: ProductViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
 
+    private fun getUserData(): LoginResponse {
+        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
+
+        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
+        val gson = Gson()
+
+        return gson.fromJson(loginResponseJson, LoginResponse::class.java)
+    }
+
+    private fun getProductData(): ProductFashion {
+        val productJson = arguments?.getString(SupItemsFragment.ARG_PRODUCT_JSON)
+
+        return Gson().fromJson(productJson, ProductFashion::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,36 +52,22 @@ class DonatedProductsFragment : Fragment() {
     ): View {
         _binding = FragmentDonatedProductsBinding.inflate(inflater, container, false)
 
-        Log.d(TAG, "I can access the DonatedProductsFragment.")
-
-        sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
-        val loginResponseJson = sharedPreferences.getString("loginResponse", null)
-        val gson = Gson()
-
-        val loginResponse = gson.fromJson(loginResponseJson, LoginResponse::class.java)
-//        val userId = loginResponse.user?.id
-        val userId = 1
-
-//        binding.textView7.visibility = View.VISIBLE
-//        binding.textView7.text = "Ini muncul bro"
-
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = FashionAdapter(emptyList()) // Initially empty
+        adapter = FashionAdapter(emptyList())
         recyclerView.adapter = adapter
 
-        if (userId != null) {
-            homeViewModel.getCurrentUserData(userId)
-        }
+        getUserData().user?.token?.accessToken?.let { homeViewModel.getUserProducts(it) }
 
-        homeViewModel.userData.observe(viewLifecycleOwner) {userData ->
-            if (userData != null) {
-//                val sentUserData = userData.fashion
-
-//                adapter = sentUserData?.let { FashionAdapter(it) }!!
+        homeViewModel.productData.observe(viewLifecycleOwner) { productData ->
+            if (productData != null) {
+//                adapter.submitList(productsFashion)
+                adapter = FashionAdapter(productData)
                 recyclerView.adapter = adapter
             }
         }
+
+
 
 //        productViewModel.productsFashion.observe(viewLifecycleOwner) { productsFashion ->
 //            if (productsFashion != null) {
@@ -73,14 +76,9 @@ class DonatedProductsFragment : Fragment() {
 //                recyclerView.adapter = adapter
 //            }
 //        }
-
+//
         return binding.root
     }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-////        _binding = null
-//    }
 
     companion object {
         private const val TAG = "DonatedProductsFragment"
